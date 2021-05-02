@@ -1,4 +1,6 @@
+from portas import calculo_E
 from copy import deepcopy
+
 
 #Caracteres que serão usados no código
 
@@ -61,9 +63,15 @@ for k, v in entradas.items():
 #Cria uma versão oposta a da tabela verdade criada. Ou seja,
 #cria uma tabela verdade com os valores de entrada NEGADOS e os apresenta na tela.
 n_entradas = deepcopy(entradas)
+
+for c in range(len(n_entradas.keys())):
+    n_entradas[keys[c]+'!'] = n_entradas[keys[c]]
+    del n_entradas[keys[c]]
+
 print()
 print("Tabela verdade dos elementos de entrada NEGADOS: ")
 for k, v in n_entradas.items():
+    entradas[k] = v
     print(f"{k}: |", end="")
     for c in range(0, len(v)):
         if v[c] == 0:
@@ -103,32 +111,7 @@ while True:
             break
 
     if user == 1:
-        resultados[ent1 + e + ent2] = []
-        if len(ent1) == 1 and len(ent2) == 1:
-            for c in range(0, linhas):
-                if entradas[ent1[0]][c] == 1 and entradas[ent2[0]][c] == 1:
-                    resultados[ent1+e+ent2].append(1)
-                else:
-                    resultados[ent1+e+ent2].append(0)
-        elif len(ent1) > len(ent2):
-            for c in range(0, linhas):
-                if n_entradas[ent1[0]][c] == 1 and entradas[ent2[0]][c] == 1:
-                    resultados[ent1+e+ent2].append(1)
-                else:
-                    resultados[ent1+e+ent2].append(0)
-        elif len(ent2) > len(ent1):
-            for c in range(0, linhas):
-                if entradas[ent1[0]][c] == 1 and n_entradas[ent2[0]][c] == 1:
-                    resultados[ent1 + e + ent2].append(1)
-                else:
-                    resultados[ent1 + e + ent2].append(0)
-        elif len(ent1) == 2 and len(ent2) == 2:
-            for c in range(0, linhas):
-                if n_entradas[ent1[0]][c] == 1 and n_entradas[ent2[0]][c] == 1:
-                    resultados[ent1+e+ent2].append(1)
-                else:
-                    resultados[ent1+e+ent2].append(0)
-        print(resultados)
+        resultados[ent1+e+ent2] = calculo_E(ent1, ent2, entry, entradas)
 
     if user == 2:
         resultados[ent1 + ou + ent2] = []
@@ -156,4 +139,4 @@ while True:
                     resultados[ent1 + ou + ent2].append(1)
                 else:
                     resultados[ent1 + ou + ent2].append(0)
-        print(resultados)
+    print(resultados)
