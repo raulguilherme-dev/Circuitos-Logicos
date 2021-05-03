@@ -1,14 +1,14 @@
-from portas import calculo_E
+import portas
 from copy import deepcopy
-
+from time import sleep
 
 #Caracteres que serão usados no código
 
 neg = '!' #NEGAÇÃO
 e = '.' #E
-negE = '¬.' #NÃO E
+negE = '<.>' #NÃO E
 ou = '+' #OU
-negOu = '¬+' #NÃO OU
+negOu = '<+>' #NÃO OU
 exc = '@' #EXCLUSIVA
 coinc = '&' #COINCIDÊNCIA
 
@@ -59,6 +59,7 @@ for k, v in entradas.items():
     for c in range(0, len(v)):
         print(f"{v[c]} |", end="")
     print()
+sleep(1)
 
 #Cria uma versão oposta a da tabela verdade criada. Ou seja,
 #cria uma tabela verdade com os valores de entrada NEGADOS e os apresenta na tela.
@@ -69,7 +70,7 @@ for c in range(len(n_entradas.keys())):
     del n_entradas[keys[c]]
 
 print()
-print("Tabela verdade dos elementos de entrada NEGADOS: ")
+print("Tabela verdade dos elementos de entrada NEGADOS: \n")
 for k, v in n_entradas.items():
     entradas[k] = v
     print(f"{k}: |", end="")
@@ -80,63 +81,71 @@ for k, v in n_entradas.items():
             v[c] = 0
         print(f"{v[c]} |", end="")
     print()
+sleep(1)
 
 print()
 resultados = {}
 while True:
-    print(f"""Qual tipo de operação você deseja fazer?
+    print(f"""\nQual tipo de operação você deseja fazer?
     {'[ 1 ] E':<18}{'[ 2 ] OU':<18}{'[ 3 ] NÃO E':<18}
-    {'[ 4 ] NÃO OU':<18}{'[ 5 ] EXCLUSIVA':<18}{'[ 6 ] COINCIDÊNCIA':<18}""")
+    {'[ 4 ] NÃO OU':<18}{'[ 5 ] EXCLUSIVA':<18}{'[ 6 ] COINCIDÊNCIA':<18}
+    {'[ 7 ] VER TABELA':<18}
+    {'[ 0 ] SAIR DO PROGRAMA':>18}""")
+
     while True:
         user = int(input("Sua escolha: "))
-        if 0 < user <= 6:
+        if 0 <= user <= 7:
             break
         else:
             print("POR FAVOR ESCOLHA UMA OPÇÃO VÁLIDA! ", end='')
-    print("Indique os elementos de entrada que irá usar: ")
-    print("Caso precise utilizar uma entrada negada, apenas coloque uma '!' "
-          "exclamação após o nome da porta. exemplo (A!)")
-    while True:
-        ent1 = str(input("Entrada 1: ")).strip().upper()[:2]
-        if ent1[0] not in entradas.keys() or len(ent1) > 1 and ent1[1] != '!':
-            print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
-        else:
-            break
 
-    while True:
-        ent2 = str(input("Entrada 2: ")).strip().upper()[:2]
-        if ent2[0] not in entradas.keys() or len(ent2) > 1 and ent2[1] != '!':
-            print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
-        else:
-            break
+    if 1 <= user <= 6:
+        print("\nIndique os elementos de entrada que irá usar: ")
+        print("Caso precise utilizar uma entrada negada, apenas coloque uma '!' "
+              "exclamação após o nome da porta. exemplo (A!)")
+        while True:
+            ent1 = str(input("Entrada 1: ")).strip().upper()
+            if ent1 not in entradas.keys():
+                print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
+            else:
+                break
 
-    if user == 1:
-        resultados[ent1+e+ent2] = calculo_E(ent1, ent2, entry, entradas)
+        while True:
+            ent2 = str(input("Entrada 2: ")).strip().upper()
+            if ent2 not in entradas.keys():
+                print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
+            else:
+                break
 
-    if user == 2:
-        resultados[ent1 + ou + ent2] = []
-        if len(ent1) == 1 and len(ent2) == 1:
-            for c in range(0, linhas):
-                if entradas[ent1[0]][c] == 1 or entradas[ent2[0]][c] == 1:
-                    resultados[ent1 + ou + ent2].append(1)
-                else:
-                    resultados[ent1 + ou + ent2].append(0)
-        elif len(ent1) > len(ent2):
-            for c in range(0, linhas):
-                if n_entradas[ent1[0]][c] == 1 or entradas[ent2[0]][c] == 1:
-                    resultados[ent1 + ou + ent2].append(1)
-                else:
-                    resultados[ent1 + ou + ent2].append(0)
-        elif len(ent2) > len(ent1):
-            for c in range(0, linhas):
-                if entradas[ent1[0]][c] == 1 or n_entradas[ent2[0]][c] == 1:
-                    resultados[ent1 + ou + ent2].append(1)
-                else:
-                    resultados[ent1 + ou + ent2].append(0)
-        elif len(ent1) == 2 and len(ent2) == 2:
-            for c in range(0, linhas):
-                if n_entradas[ent1[0]][c] == 1 or n_entradas[ent2[0]][c] == 1:
-                    resultados[ent1 + ou + ent2].append(1)
-                else:
-                    resultados[ent1 + ou + ent2].append(0)
-    print(resultados)
+    print()
+    if user == 0:
+        break
+
+    elif user == 1:
+        entradas['('+ent1+e+ent2+')'] = portas.porta_e(ent1, ent2, entry, entradas)
+
+    elif user == 2:
+        entradas['('+ent1+ou+ent2+')'] = portas.porta_ou(ent1, ent2, entry, entradas)
+
+    elif user == 3:
+        entradas['('+ent1+negE+ent2+')'] = portas.porta_en(ent1, ent2, entry, entradas)
+
+    elif user == 4:
+        entradas['('+ent1+negOu+ent2+')'] = portas.porta_oun(ent1, ent2, entry, entradas)
+
+    elif user == 5:
+        entradas['('+ent1+exc+ent2+')'] = portas.porta_exclusiva(ent1, ent2, entry, entradas)
+
+    elif user == 6:
+        entradas['('+ent1+coinc+ent2+')'] = portas.porta_coincidencia(ent1, ent2, entry, entradas)
+
+    elif user == 7:
+        print()
+        print("Tabela verdade dos elementos de entrada: \n")
+        for k, v in entradas.items():
+            print(f"{k}: |", end="")
+            for c in range(0, len(v)):
+                print(f"{v[c]} |", end="")
+            print()
+        sleep(5)
+        print()
