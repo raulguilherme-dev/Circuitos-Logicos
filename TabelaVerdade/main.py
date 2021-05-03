@@ -17,7 +17,13 @@ print(f"[{' -' * 5}TABELA VERDADE{' - ' * 5}]\n")
 #Define os elementos básicos da tabela verdade à ser montada.
 #Quantidade de elementos de entrada e linhas da tabela.
 elementos = {'A':[], 'B':[], 'C':[], 'D':[], 'E':[], 'F':[], 'G':[], 'H':[]}
-entry = int(input("Quantos elementos de entrada sua expressão possui? "))
+while True:
+    entry = str(input("Quantos elementos de entrada sua expressão possui? "))
+    if entry.isnumeric():
+        entry = int(entry)
+        break
+    else:
+        print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
 linhas = 2 ** entry
 entradas = {}
 cont = 0
@@ -90,10 +96,16 @@ while True:
     {'[ 1 ] E':<18}{'[ 2 ] OU':<18}{'[ 3 ] NÃO E':<18}
     {'[ 4 ] NÃO OU':<18}{'[ 5 ] EXCLUSIVA':<18}{'[ 6 ] COINCIDÊNCIA':<18}
     {'[ 7 ] VER TABELA':<18}
-    {'[ 0 ] SAIR DO PROGRAMA':>18}""")
+    {'[ 0 ] SAIR DO PROGRAMA':>40}""")
 
     while True:
-        user = int(input("Sua escolha: "))
+        while True:
+            user = str(input("Sua escolha: "))
+            if user.isnumeric():
+                user = int(user)
+                break
+            else:
+                print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
         if 0 <= user <= 7:
             break
         else:
