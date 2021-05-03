@@ -90,7 +90,9 @@ for k, v in n_entradas.items():
 sleep(1)
 
 print()
-resultados = {}
+
+dic_chaves = {1:".", 2:"+", 3:"(.)", 4:"(+)", 5:"@", 6:"&"}
+
 while True:
     print(f"""\nQual tipo de operação você deseja fazer?
     {'[ 1 ] E':<18}{'[ 2 ] OU':<18}{'[ 3 ] NÃO E':<18}
@@ -128,13 +130,16 @@ while True:
                 print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
             else:
                 break
+    
+    chave = "("+ent1+dic_chaves[user]+ent2+")"
 
     print()
+    print(f"{chave}: ", end="")
     if user == 0:
         break
 
     elif user == 1:
-        entradas['('+ent1+e+ent2+')'] = portas.porta_e(ent1, ent2, entry, entradas)
+        entradas[chave] = portas.porta_e(ent1, ent2, entry, entradas)
 
     elif user == 2:
         entradas['('+ent1+ou+ent2+')'] = portas.porta_ou(ent1, ent2, entry, entradas)
