@@ -130,11 +130,10 @@ while True:
                 print("POR FAVOR ESCOLHA UM VALOR VÁLIDO! ", end='')
             else:
                 break
-    
-    chave = "("+ent1+dic_chaves[user]+ent2+")"
+        chave = "(" + ent1 + dic_chaves[user] + ent2 + ")"
+        print()
+        print(f"{chave}: ", end="")
 
-    print()
-    print(f"{chave}: ", end="")
     if user == 0:
         break
 
@@ -158,7 +157,7 @@ while True:
 
     elif user == 7:
         print()
-        print("Tabela verdade dos elementos de entrada: \n")
+        print("Tabela verdade: \n")
         for k, v in entradas.items():
             print(f"{k}: |", end="")
             for c in range(0, len(v)):
