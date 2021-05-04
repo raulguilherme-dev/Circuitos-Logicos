@@ -6,9 +6,9 @@ from time import sleep
 
 neg = '!' #NEGAÇÃO
 e = '.' #E
-negE = '<.>' #NÃO E
+negE = ';' #NÃO E
 ou = '+' #OU
-negOu = '<+>' #NÃO OU
+negOu = 'x' #NÃO OU
 exc = '@' #EXCLUSIVA
 coinc = '&' #COINCIDÊNCIA
 
@@ -91,7 +91,7 @@ sleep(1)
 
 print()
 
-dic_chaves = {1:".", 2:"+", 3:"(.)", 4:"(+)", 5:"@", 6:"&"}
+dic_chaves = {1:".", 2:"+", 3:";", 4:"x", 5:"@", 6:"&"}
 
 while True:
     print(f"""\nQual tipo de operação você deseja fazer?
@@ -141,19 +141,19 @@ while True:
         entradas[chave] = portas.porta_e(ent1, ent2, entry, entradas)
 
     elif user == 2:
-        entradas['('+ent1+ou+ent2+')'] = portas.porta_ou(ent1, ent2, entry, entradas)
+        entradas[chave] = portas.porta_ou(ent1, ent2, entry, entradas)
 
     elif user == 3:
-        entradas['('+ent1+negE+ent2+')'] = portas.porta_en(ent1, ent2, entry, entradas)
+        entradas[chave] = portas.porta_en(ent1, ent2, entry, entradas)
 
     elif user == 4:
-        entradas['('+ent1+negOu+ent2+')'] = portas.porta_oun(ent1, ent2, entry, entradas)
+        entradas[chave] = portas.porta_oun(ent1, ent2, entry, entradas)
 
     elif user == 5:
-        entradas['('+ent1+exc+ent2+')'] = portas.porta_exclusiva(ent1, ent2, entry, entradas)
+        entradas[chave] = portas.porta_exclusiva(ent1, ent2, entry, entradas)
 
     elif user == 6:
-        entradas['('+ent1+coinc+ent2+')'] = portas.porta_coincidencia(ent1, ent2, entry, entradas)
+        entradas[chave] = portas.porta_coincidencia(ent1, ent2, entry, entradas)
 
     elif user == 7:
         print()
