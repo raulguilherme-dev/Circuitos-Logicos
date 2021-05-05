@@ -2,16 +2,6 @@ import portas
 from copy import deepcopy
 from time import sleep
 
-#Caracteres que serão usados no código
-
-neg = '!' #NEGAÇÃO
-e = '.' #E
-negE = ';' #NÃO E
-ou = '+' #OU
-negOu = 'x' #NÃO OU
-exc = '@' #EXCLUSIVA
-coinc = '&' #COINCIDÊNCIA
-
 print(f"[{' -' * 5}TABELA VERDADE{' - ' * 5}]\n")
 
 #Define os elementos básicos da tabela verdade à ser montada.
