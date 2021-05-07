@@ -57,7 +57,6 @@ for k, v in entradas.items():
     print()
 sleep(1)
 
-#Cria uma versão oposta a da tabela verdade criada. Ou seja,
 #cria uma tabela verdade com os valores de entrada NEGADOS e os apresenta na tela.
 n_entradas = deepcopy(entradas)
 
@@ -81,8 +80,10 @@ sleep(1)
 
 print()
 
+#Cria um dicionário que relaciona as opções de portas ao caracter que o representa (Dentro do programa).
 dic_chaves = {1:".", 2:"+", 3:";", 4:"x", 5:"@", 6:"&"}
 
+#Menu de portas para a escolha do usuário.
 while True:
     print(f"""\nQual tipo de operação você deseja fazer?
     {'[ 1 ] E':<18}{'[ 2 ] OU':<18}{'[ 3 ] NÃO E':<18}
@@ -103,6 +104,7 @@ while True:
         else:
             print("POR FAVOR ESCOLHA UMA OPÇÃO VÁLIDA! ", end='')
 
+    #Usuário informa quais entradas a porta escolhida recebe.
     if 1 <= user <= 6:
         print("\nIndique os elementos de entrada que irá usar: ")
         print("Caso precise utilizar uma entrada negada, apenas coloque uma '!' "
@@ -124,6 +126,7 @@ while True:
         print()
         print(f"{chave}: ", end="")
 
+    #Aciona uma função baseado nas escolhas do usuário
     if user == 0:
         break
 
